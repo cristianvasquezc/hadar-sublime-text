@@ -1,0 +1,12 @@
+{
+  "name": "hadar-theme",
+  "version": "1.0.0",
+  "description": "Un pack de tres temas oscuros traído desde la constelación de Centauro para darte mas comodidad al programar en la oscuridad.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CristianVasquez13"
+  },
+  "author": "Cristian Vásquez",
+  "license": "MIT",
+  "homepage": "https://hadartheme.netlify.app/"
+}

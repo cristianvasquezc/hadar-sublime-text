@@ -1,0 +1,13 @@
+{
+  // Hadar theme: Use native titlebars on macOs
+  "ui_native_titlebar": false,
+
+  // Hadar theme: Show separators between panels
+  "ui_separator": false,
+
+  // Hadar theme: Display wider scrollbars
+  "ui_wide_scrollbars": true,
+
+  // Hadar theme: Font size
+  "font_size": 12
+}
