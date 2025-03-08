@@ -39,4 +39,8 @@ Open command palette via `Tools > Command Palette` (or <kbd>cmd/ctrl</kbd> + <kb
 
 Add these lines to your user settings `Preferences > Package Settings > Hadar Theme > Selected Theme`
 
+## III Additional Packages
+
+Please note that this package installs additional packages to enhance the theme experience. One of these packages is `A File Icon`, which provides file specific icons for better visual identification.
+
 <p align="center">Elaborado por: <a href="https://mislinks.netlify.app/">Cristian Vásquez</a></p>
