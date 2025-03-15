@@ -4,9 +4,14 @@ A File Icon Installer
 
 import os
 import sublime
+import sublime_plugin
+import urllib.request
+import threading
 
 ICONS_PACKAGE = "A File Icon"
 PKGCTRL_SETTINGS = "Package Control.sublime-settings"
+PKGCTRL_URL = "https://packagecontrol.io/Package Control.sublime-package"
+PKGCTRL_PATH = os.path.join(sublime.installed_packages_path(), "Package Control.sublime-package")
 
 THEME_NAME = os.path.splitext(
     os.path.basename(os.path.dirname(__file__))
@@ -40,8 +45,31 @@ MSG = """\
 
 def is_installed():
     pkgctrl_settings = sublime.load_settings(PKGCTRL_SETTINGS)
+    installed_packages = set(pkgctrl_settings.get("installed_packages", []))
+    return ICONS_PACKAGE in installed_packages
+    
+def install_package_control():
+    """Instala Package Control si no está presente."""
+    if not os.path.exists(PKGCTRL_PATH):
+        print("Package Control not found. Installing...")
+        try:
+            urllib.request.urlretrieve(PKGCTRL_URL, PKGCTRL_PATH)
+            sublime.status_message("Package Control installed. Please restart Sublime Text.")
+        except Exception as e:
+            sublime.error_message("Failed to install Package Control: {}".format(e))
+    else:
+        print("Package Control is already installed.")
 
-    return ICONS_PACKAGE in set(pkgctrl_settings.get("installed_packages", []))
+
+def install_package():
+    """Instala el paquete A File Icon usando Package Control."""
+    try:
+        from package_control.package_manager import PackageManager
+        manager = PackageManager()
+        manager.install_package(ICONS_PACKAGE)
+        sublime.status_message("{} installed successfully!".format(ICONS_PACKAGE))
+    except Exception as e:
+        sublime.error_message("Failed to install {}: {}".format(ICONS_PACKAGE, e))
 
 
 def on_navigate(href):
@@ -52,12 +80,9 @@ def on_navigate(href):
 
 
 def install():
-    print("Installing `{}` ...".format(ICONS_PACKAGE))
-    sublime.active_window().run_command(
-        "advanced_install_package", {"packages": ICONS_PACKAGE}
-    )
+    install_package_control()
+    sublime.set_timeout(lambda: install_package(), 1000)
     hide()
-
 
 def hide():
     sublime.active_window().active_view().hide_popup()
